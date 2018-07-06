@@ -1,6 +1,6 @@
 // 1
-const er = require('blockchain.info/exchange');
-const ct = require('console.table');
+const   er      = require('blockchain.info/exchange'),
+        ct      = require('console.table'); // 8
 
 
 async function run() {

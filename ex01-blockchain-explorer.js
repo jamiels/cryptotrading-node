@@ -1,7 +1,7 @@
 // npm i --save blockchain.info
 // http://bit.ly/ChainhausCryptoTrader
 
-var be = require('blockchain.info/blockexplorer');
+const be = require('blockchain.info/blockexplorer');
 
 async function run() {
 
