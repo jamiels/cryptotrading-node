@@ -1,23 +1,25 @@
-// 1
-// npm install dataframe-js
-
-// 22
 var request = require('request');
 var DataFrame = require('dataframe-js').DataFrame;
-       
+
 async function run() {
-    //url = 'https://etherscan.io/chart/etherprice?output=csv'
-    // 3
-    request('https://etherscan.io/chart/etherprice?output=csv', (error, response, body) => {
-        
+
+    // 1
+    var url = 'https://etherscan.io/chart/etherprice?output=csv';
+
+    // 2
+    request('https://api.coinmarketcap.com/v1/ticker/', (error, response, body) => {
         console.log(body);
-
-
-
-        // 6
-        DataFrame.fromCSV(body).then((df)=> {df.show()});
-        
     });
+
+    // 3
+    DataFrame.fromCSV(url,true).then(df=> df.show(5));
+
+    // 4
+    df = await DataFrame.fromCSV(url,true);
+    df.show(5);
+    console.log(df.dim());
+    console.log(df.listColumns());
+    console.log(df.count());
 };
 
 // 11

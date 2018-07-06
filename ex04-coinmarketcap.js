@@ -10,7 +10,7 @@ var DataFrame = require('dataframe-js').DataFrame;
 async function run() {
     
     // 3
-    request('https://api.coinmarketcap.com/v1/ticker/', (error, response, body) => {
+    request('https://api.coinmarketcap.com/v1/ticker/', async (error, response, body) => {
         
         // 4
         json = JSON.parse(body);
@@ -25,11 +25,11 @@ async function run() {
         var df = new DataFrame(json);
         console.log(df.dim());
         console.log(df.listColumns());
+        console.log(df.count());
         df.show();
         df.show(3);
 
-        //7
-        console.log(df.count());
+        //7    
         
         // 8
         df = df.select('name','symbol', 'price_usd');
@@ -45,6 +45,8 @@ async function run() {
 
     });
 
+
+
     //12
     console.log('litecoin price stream');
     for (var i=0;i<2;i++) {
@@ -57,6 +59,10 @@ async function run() {
         });
         await sleep(5000);
     };
+
+    // 13 - Refactor
+    df = await DataFrame.fromJSON('https://api.coinmarketcap.com/v1/ticker/');
+    df.show(5);
 };
 
 // 11
