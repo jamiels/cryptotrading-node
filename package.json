@@ -9,6 +9,7 @@
   "author": "Jamiel Sheikh",
   "license": "ISC",
   "dependencies": {
-    "blockchain.info": "^2.12.1"
+    "blockchain.info": "^2.12.1",
+    "console.table": "^0.10.0"
   }
 }

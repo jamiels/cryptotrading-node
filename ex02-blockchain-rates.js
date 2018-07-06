@@ -1,60 +1,65 @@
 // 1
-// npm init
-// npm i --save blockchain.info
+const er = require('blockchain.info/exchange');
+const ct = require('console.table');
 
 
-// 2
-var be = require('blockchain.info/exchange');
-
-// 3
 async function run() {
-    // 4
-    // show without await and then dicuss need for await, what is a promise
-    latest_block = await be.getLatestBlock();
-    // 5
-    //console.log('Latest block:',latest_block.height);
-    // 6
-    //console.log('Latest hash:',latest_block.hash)
+    // 2
+    currencySymbols = await er.getTicker();
+    console.log(currencySymbols)
 
-    // 7 - http://bit.ly/ChainhausCryptoTrader
-    pizzaBlockHash = "00000000152340ca42227603908689183edc47355204e7aca59383b0aaac1fd8";
-    pizzaTxHash = "a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d";
+    // 3
+    for (var i; i < currencySymbols.length; i++) {
+        //console.log(currencySymbols[i]);
+    }
+
+    // 4
+    console.log(currencySymbols.USD);
+    console.log(currencySymbols.NZD);
+
+    // 5
+    for (c in currencySymbols) {
+      console.log(c);
+    }
+
+    // 6
+    for (c in currencySymbols) {
+        console.log(currencySymbols[c]);
+    }
+
+    // 7
+    z = [];
+    for (c in currencySymbols) {
+        x = {};
+        x[c] = currencySymbols[c].last;
+        z.push(x);
+    }
+    console.log(z);
 
     // 8
-    pizzaBlock = await be.getBlock(pizzaBlockHash);
+    // npm install --save console.table
     
     // 9
-    //console.log(pizzaBlock);
-    //console.log('The block height for the Laszlo tx is',pizzaBlock.height);
+    console.table(currencySymbols.USD);
 
-    // 10 - Show on blockchain.info
-    pizzaTxs = await be.getTx(pizzaTxHash);
-    //console.log(pizzaTxs);
+    // 10
+    cash = 5000;
+    cadBTC = await er.toBTC(cash,'CAD');
+    console.log(cash,'CAD costs',cadBTC,'BTCs');
 
-    // 11 - Explain UTXOs
-    for (var i=0; i < pizzaTxs.inputs.length; i++) {
-        //console.log(satoshisToBtc(pizzaTxs.inputs[i].prev_out.value));
+    // 11
+    for (c in currencySymbols) {
+        toBTC = await er.toBTC(cash,c);
+        console.log(cash,c,'costs',toBTC,'BTCs');
     }
 
     // 12
-    for (var i=0; i < pizzaTxs.out.length; i++) {
-        //console.log(satoshisToBtc(pizzaTxs.out[i].value));
+    satoshis = 100000000;
+    for (c in currencySymbols) {
+        fromBTC = await er.fromBTC(satoshis,c);
+        console.log(satoshisToBtc(satoshis),'BTCs is equal to',fromBTC,c,'s');
     }
 
-    // 13
-    laszloAddress = "1XPTgDRhN8RFnzniWCddobD9iKZatrvH4";
-    
-    // 14
-    laszloTxs = await be.getAddress(laszloAddress);
-    //console.log(laszloTxs);
-
-    // 15
-    console.log(laszloTxs.txs[0]);
-    
-    // 16
-    for (var i =0; i < laszloTxs.txs.length; i++) {
-        console.log(satoshisToBtc(laszloTxs.txs[i].out[0].value));
-    }
 
 };
 
