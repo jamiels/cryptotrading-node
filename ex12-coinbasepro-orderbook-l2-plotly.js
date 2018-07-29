@@ -2,37 +2,48 @@ var request = require('request');
 var DataFrame = require('dataframe-js').DataFrame;
 var plotly = require('plotly')('jamielsheikh', 'VNBx3ByJnTptdjg2d0Pc');
 
-// 1 level 2
-
-
 async function run() {    
-    // 3 change last arg to true
-    // 4 add level 2
     load('https://api.gdax.com/products/eth-usd/book?level=2',getHeaders(),false);
-
-
 };
 
 function callback(json) {
+    // 1 clear function
+
     prices = [];
+    
+    // 2
     bids = [];
+    
+    // 6
     asks = [];
 
+    // 3
     for (b in json.bids) {
         console.log(json.bids[b][0]);
+        
+        // 7
         prices.push(json.bids[b][0]);
+        
+        // 4
         bids.push(json.bids[b][0])
     }
 
+    // 5
     console.log(prices.length);
+    
+    // 6
     for (a in json.asks) {
         console.log(json.asks[a][0]);
+
+        // 7
         prices.push(json.asks[a][0]);
+        
         asks.push(json.asks[a][0])
     }
 
     console.log(prices.length);
 
+    // 8
     var bids_series = {
         x : prices,
         y : bids,
@@ -46,8 +57,10 @@ function callback(json) {
         type: 'scatter'
     }
 
+    // 9
     var data = [bids_series,asks_series];
 
+    // 10
     var layout = {
         title: "Eth Limit Book",
         yaxis: {title: "Bids"},
@@ -59,8 +72,11 @@ function callback(json) {
           side: "right"
         }
       };
-
+    
+    // 11
     var options = {layout: layout, filename: "eth-limitbook", fileopt: "overwrite"};
+    
+    // 12
     plotly.plot(data, options, function (err, msg) {
         console.log(msg);
   });
