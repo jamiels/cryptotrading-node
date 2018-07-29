@@ -64,16 +64,6 @@ function callback(json) {
     plotly.plot(data, options, function (err, msg) {
         console.log(msg);
   });
-    
-
-    /*
-    var data = [{ x: df_ts.toArray(), y: df_values.toArray(), type: "scatter"}];
-    var options = {filename: "eth-orderbook", fileopt: "overwrite"};
-    plotly.plot(data, options, function (err, msg) {
-          console.log(msg);
-    });
-    */
-
 }
 
 function load(url,headers,printout) {
