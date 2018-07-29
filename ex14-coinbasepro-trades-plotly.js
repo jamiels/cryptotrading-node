@@ -3,20 +3,22 @@ var DataFrame = require('dataframe-js').DataFrame;
 var plotly = require('plotly')('jamielsheikh', 'VNBx3ByJnTptdjg2d0Pc');
 
 async function run() {    
-
-    // 1
-    load('https://api.gdax.com/products/eth-usd/trades',getHeaders(),false);
+    // 1 change to btc
+    load('https://api.gdax.com/products/btc-usd/trades',getHeaders(),false);
 };
 
 function callback(json) {
 
     df = new DataFrame(json);
 
+    // 2
     df_time = df.select('time');
     df_price = df.select('price');
 
+
+    // 3
     var data = [{ x: df_time.toArray(), y: df_price.toArray(), type: "scatter"}];
-    var options = {filename: "eth-trading-time-series", fileopt: "overwrite"};
+    var options = {filename: "btc-trading-time-series", fileopt: "overwrite"};
     plotly.plot(data, options, function (err, msg) {
           console.log(msg);
     });  

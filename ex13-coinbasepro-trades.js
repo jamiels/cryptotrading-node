@@ -18,9 +18,11 @@ function callback(json) {
     buy = bid was hit, downtick
     */
 
+    // 2
     df = new DataFrame(json);
     df.show(50);
 
+    // 3
     df = df.restructure(['time', 'price', 'size'])
     df.show(50); 
 }
