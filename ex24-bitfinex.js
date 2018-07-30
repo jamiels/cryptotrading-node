@@ -39,10 +39,7 @@ async function run() {
     coinbaseProClient.on('connect', function(conn) {
         console.log('Connected');
         conn.on('message', function(message) {
-            console.log(message);
-            
-            // 6
-            console.log(JSON.parse(message.utf8Data).changes);
+            console.log('Bitfinex: ',JSON.parse(message.utf8Data).changes);
         });
         conn.sendUTF(conbaseProRequest);
     });
@@ -52,7 +49,7 @@ async function run() {
     bitfinexClient.on('connect', function(conn) {
         console.log('Connected');
         conn.on('message', function(message) {
-            console.log(message);
+            console.log('Coinbase Pro',message);
         });
         conn.sendUTF(bitfinexRequest);
     });
