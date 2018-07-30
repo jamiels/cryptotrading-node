@@ -1,31 +1,40 @@
 var request = require('request');
 var DataFrame = require('dataframe-js').DataFrame;
 
-// 1: motivation - refactor dataframe
-
+// 1 explain blotter concept
 async function run() {    
-    // 4 change last arg to false
-    load('https://api.pro.coinbase.com/products',getHeaders(),false);
+    
+    // 3
+    blotter = initializeBlotter();
+    blotter.show();
+
+    // 4 add dummy trades
+    trade = [new Date(),'eth',1.3,455];
+    blotter = blotter.push(trade);
+    blotter.show();
+
+    // 5 add multiple dummy trades
+    console.log();
+    blotter = blotter.push([new Date(),'eth',1.3,455],[new Date(),'eth',-1.1,480]);
+    blotter.show(10);
 };
 
-function callback(df) {
-    df.show();
+
+// 2
+function initializeBlotter() {
+    blotter = new DataFrame([],['Timestamp','Crypto','Qty','Price']);
+    return blotter;
 }
 
-// 2 - add printout
 function load(url,headers,printout) {
+    var json;
     request({headers:{'User-Agent': headers},
             uri:url}, 
             async (error, response, body) => {      
                 json = JSON.parse(body);
-                df = new DataFrame(json);
-                if(printout) { // 3
-                    console.log(df.dim());
-                    console.log(df.listColumns());
-                    console.log(df.count());
-                    df.show();
-                }
-                callback(df);
+                if(printout)
+                    console.log(json);
+                callback(json);
     });
 }
 
