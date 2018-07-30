@@ -1,10 +1,12 @@
 // npm i --save blockchain.info
 // http://bit.ly/ChainhausCryptoTrader
 
+
+// 1 - check node -v and npm -v
 const be = require('blockchain.info/blockexplorer');
-
+// explain async run
 async function run() {
-
+    // 2
     // show without await and then dicuss need for await, what is a promise
     latest_block = await be.getLatestBlock();
     //console.log('Latest block:',latest_block.height);
